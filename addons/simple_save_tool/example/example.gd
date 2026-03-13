@@ -7,6 +7,9 @@ extends Node
 @onready var loda_data: Button = %loda_data
 
 
+@onready var player: Node2D = %player
+var original_player_position : Vector2
+
 @onready var label_number: Label = %label_number
 @onready var less_number: Button = %less_number
 @onready var plus_number: Button = %plus_number
@@ -26,9 +29,18 @@ func _ready() -> void:
 	loda_data.pressed.connect(_loda_data)
 	less_number.pressed.connect(_less_number)
 	plus_number.pressed.connect(_plus_number)
+	original_player_position = player.position
 
-func _less_number () -> void: number = number - 1 
-func _plus_number () -> void: number = number + 1
+func _update_player_position() -> void:
+	player.position = Vector2(original_player_position.x + (10 * number), original_player_position.y)
+
+func _less_number () -> void: 
+	number = number - 1 
+	_update_player_position()
+
+func _plus_number () -> void: 
+	number = number + 1
+	_update_player_position()
 
 func _change_slot_0 () -> void: SAVE_MANAGER.change_slot(0)
 func _change_slot_1 () -> void: SAVE_MANAGER.change_slot(1)

@@ -1,10 +1,10 @@
 # #💾 Simple Save Tool Addon for Godot
 
-An addon (plugin) for Godot 4.x that implements a Global Singleton (autoload) named **SAVEMANAGER** to simplify persistent data storage using Resources (.tres).
+An addon (plugin) for Godot 4.x that implements a Global Singleton (autoload) named **SAVE_MANAGER** to simplify persistent data storage using Resources (.tres).
 
 ## ##⚙️ Features
 
-- **Global Singleton:** Access your save system from any script as `SAVEMANAGER.save_data()` or `SAVEMANAGER.get_data(...)`.
+- **Global Singleton:** Access your save system from any script as `SAVE_MANAGER.save_data()` or `SAVE_MANAGER.get_data(...)`.
 - **Resource-Based:** Built on top of Godot's Resource class for native, fast, and structured serialization.
 - **Slot System:** Manage multiple save files (e.g., Save_0.tres, Save_1.tres) with built-in slot switching.
 - **Ready to Use:** Includes both the SaveManager.gd logic and the SAVE resource class out of the box.
@@ -17,11 +17,11 @@ An addon (plugin) for Godot 4.x that implements a Global Singleton (autoload) na
 2.  Copy the folder into your Godot project's addons/ directory.
 3.  Go to **Project > Project Settings > Plugins**.
 4.  Find **"Simple Save Tool"** and ensure it is **Enabled**.
-5.  Ensure **SAVEMANAGER** is added as an **Autoload** (Project Settings > Autoload).
+5.  Ensure **SAVE_MANAGER** is added as an **Autoload** (Project Settings > Autoload).
 
 ### 2. Usage Examples
 
-The `SAVEMANAGER` handles a dictionary named `DATA` inside a `SAVE` resource. All data is persistent once `save_data()` is called.
+The `SAVE_MANAGER` handles a dictionary named `DATA` inside a `SAVE` resource. All data is persistent once `save_data()` is called.
 
 ### A. Storing and Retrieving Data
 
@@ -30,12 +30,12 @@ var player_name
 var player_coins
 
 # Storing data in the current session
-SAVEMANAGER.set_data("player_name", "Aris")
-SAVEMANAGER.set_data("coins", 150)
+SAVE_MANAGER.set_data("player_name", "Aris")
+SAVE_MANAGER.set_data("coins", 150)
 
 # Retrieving data (with optional default value if the key doesn't exist)
-player_name = SAVEMANAGER.get_data("player_name", "Generic Hero")
-player_coins = SAVEMANAGER.get_data("coins", 0)
+player_name = SAVE_MANAGER.get_data("player_name", "Generic Hero")
+player_coins = SAVE_MANAGER.get_data("coins", 0)
 
 # NOTE: A default value can be passed to "get_data()" as an error handler;
 # the function will return this value if the key doesn't exist in the DATA dictionary.
@@ -43,32 +43,32 @@ player_coins = SAVEMANAGER.get_data("coins", 0)
 
 ### B. Saving and Loading (Disk)
 
-all data stored through `SAVEMANAGER.set_data()` is saved to the file by calling `save_data() `, this is an asynchronous operation. It is recommended to use `await` to ensure the file system has finished writin
+all data stored through `SAVE_MANAGER.set_data()` is saved to the file by calling `save_data() `, this is an asynchronous operation. It is recommended to use `await` to ensure the file system has finished writin
 
 ```gdscript
 func _on_save_button_pressed():
 	# Save current memory data to "user://Save_0.tres" -> Default path
-	await SAVEMANAGER.save_data()
+	await SAVE_MANAGER.save_data()
 	print("Game Saved Successfully!")
 
 func _ready():
 	# Load existing data from disk into memory
-	SAVEMANAGER.load_data()
+	SAVE_MANAGER.load_data()
 ```
 
 ### C. Slots and File Management
 
 ```gdscript
 # Change the active slot (this automatically updates the file path)
-SAVEMANAGER.change_slot(2)
+SAVE_MANAGER.change_slot(2)
 # Path becomes "user://Save_2.tres"
 
 # Change the base file name
-SAVEMANAGER.change_file_name("MyGameSave")
+SAVE_MANAGER.change_file_name("MyGameSave")
 # Path becomes "user://MyGameSave_2.tres"
 
 # Wipe current slot data
-SAVEMANAGER.delete_data()
+SAVE_MANAGER.delete_data()
 ```
 
 ## ##📑 API Reference
@@ -105,7 +105,7 @@ extends Node #PLAYER NODE
 var player_position : Vector2
 
 func _ready() -> void:
-	# Connect to the global SAVEMANAGER signals
+	# Connect to the global SAVE_MANAGER signals
 	SAVE_MANAGER.will_save_data.connect(_player_on_save)
 	SAVE_MANAGER.load_data_done.connect(_player_on_load)
 
@@ -122,7 +122,7 @@ func _player_on_load() -> void:
 
 #### Key Benefits of this Pattern:
 
-- **Encapsulation**: The `SAVEMANAGER` doesn't need to know the Player exists; it just broadcasts the event.
+- **Encapsulation**: The `SAVE_MANAGER` doesn't need to know the Player exists; it just broadcasts the event.
 - **Scalability**: You can add as many "savable" objects as you want (NPCs, Chests, Environment states) just by connecting them to these signals.
 - **Clean Code**: Keeps your save logic distributed and modular rather than having one giant, messy save function.
 
@@ -141,7 +141,7 @@ You cannot save Godot Nodes (e.g., `get_node("Player")`) directly into the DATA 
 
 The `save_data()` function is asynchronous. Failing to use `await` before closing the game or changing scenes can result in corrupted save files.
 
-- Correct Usage: `await SAVEMANAGER.save_data()`
+- Correct Usage: `await SAVE_MANAGER.save_data()`
 
 ### 3. Resource Class Stability
 

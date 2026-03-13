@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://12whob2a77x3"]
 
 [ext_resource type="Script" uid="uid://50ic2uy0h86f" path="res://addons/simple_save_tool/example/example.gd" id="1_k33v6"]
+[ext_resource type="Script" uid="uid://1pns4moeow0x" path="res://addons/simple_save_tool/example/playerExample.gd" id="2_86i8c"]
+[ext_resource type="Texture2D" uid="uid://bjcih6vfqps6" path="res://addons/simple_save_tool/example/icon.svg" id="2_yb4ho"]
 
 [node name="node" type="Node" unique_id=466817357]
 script = ExtResource("1_k33v6")
@@ -26,19 +28,19 @@ text = "change to slot 1"
 [node name="save_data" type="Button" parent="." unique_id=457651371]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
-offset_left = 263.0
-offset_top = 179.0
-offset_right = 383.0
-offset_bottom = 239.0
+offset_left = 234.0
+offset_top = 142.0
+offset_right = 384.0
+offset_bottom = 202.0
 text = "save"
 
 [node name="loda_data" type="Button" parent="." unique_id=261027958]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
-offset_left = 759.0
-offset_top = 181.0
-offset_right = 879.0
-offset_bottom = 241.0
+offset_left = 773.0
+offset_top = 131.0
+offset_right = 923.0
+offset_bottom = 191.0
 text = "load"
 
 [node name="Control" type="Control" parent="." unique_id=1069148250]
@@ -55,10 +57,10 @@ size_flags_vertical = 8
 [node name="label_number" type="Label" parent="Control" unique_id=699611467]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = -120.0
-offset_top = -310.0
-offset_right = 92.0
-offset_bottom = -199.0
+offset_left = -116.0
+offset_top = -166.0
+offset_right = 96.0
+offset_bottom = -55.0
 theme_override_font_sizes/font_size = 60
 text = "0"
 horizontal_alignment = 1
@@ -84,3 +86,11 @@ offset_top = -124.0
 offset_right = 320.0
 offset_bottom = -64.0
 text = "plus (+1)"
+
+[node name="player" type="Node2D" parent="." unique_id=537652563]
+unique_name_in_owner = true
+position = Vector2(576, 350)
+script = ExtResource("2_86i8c")
+
+[node name="Sprite2D" type="Sprite2D" parent="player" unique_id=1127838200]
+texture = ExtResource("2_yb4ho")
