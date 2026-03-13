@@ -59,10 +59,12 @@ func change_slot(new_slot : int) -> void:
 	_create_file(_file_path)
 
 
-func save_data(time_to_deferred : float = 0.5) -> void:
+func save_data(time_to_deferred : float = 0.5) -> Error:
 	will_save_data.emit()
 	await _time_deferred(time_to_deferred)
-	ResourceSaver.save( _resource, _file_path, true)
+	var res : Error = await ResourceSaver.save( _resource, _file_path, true)
+	return res
+
 
 
 func load_data() -> void:
@@ -72,12 +74,14 @@ func load_data() -> void:
 	load_data_done.emit()
 
 
-func delete_data() -> void: 
+func delete_data() -> Error: 
+	var res : Error = Error.ERR_FILE_CANT_OPEN
 	if ResourceLoader.exists(_file_path):
 		var new_instance : SAVE = SAVE.new()
 		_resource = new_instance
-		ResourceSaver.save(_resource, _file_path, true)
-	else: push_error("NO FILE TO DELETE")
+		res = await ResourceSaver.save(_resource, _file_path, true)
+	return res
+
 
 
 func create_new_temporal_data() -> void:

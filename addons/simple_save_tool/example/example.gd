@@ -35,7 +35,8 @@ func _change_slot_1 () -> void: SAVE_MANAGER.change_slot(1)
 
 func _save_data () -> void: 
 	SAVE_MANAGER.set_data("number", number) #this save the data in the resource
-	SAVE_MANAGER.save_data() #this save the data in the user/res directory 
+	await SAVE_MANAGER.save_data() #this save the data in the user/res directory 
+
 
 func _loda_data () -> void:
 	SAVE_MANAGER.load_data() #this load the data from the user/res directory to the resource
