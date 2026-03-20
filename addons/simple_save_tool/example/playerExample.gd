@@ -2,8 +2,8 @@ extends Node2D # PLAYER NODE
 
 func _ready() -> void:
 	# Connect to the global SAVEMANAGER signals
-	SAVE_MANAGER.will_save_data.connect(_player_on_save) 
-	SAVE_MANAGER.load_data_done.connect(_player_on_load) 
+	SAVE_MANAGER.data_is_saving.connect(_player_on_save) 
+	SAVE_MANAGER.data_was_loaded.connect(_player_on_load) 
 
 func _player_on_save() -> void:
 	# Automatically register position to memory before the file is written

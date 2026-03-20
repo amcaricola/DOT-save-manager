@@ -7,25 +7,27 @@
 [node name="node" type="Node" unique_id=466817357]
 script = ExtResource("1_k33v6")
 
-[node name="change_slot_0" type="Button" parent="." unique_id=744334020]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1837576516]
+
+[node name="change_slot_0" type="Button" parent="CanvasLayer" unique_id=744334020]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 offset_left = 65.0
 offset_top = 62.0
-offset_right = 185.0
+offset_right = 215.0
 offset_bottom = 122.0
 text = "change to  slot 0"
 
-[node name="change_slot_1" type="Button" parent="." unique_id=932908569]
+[node name="change_slot_1" type="Button" parent="CanvasLayer" unique_id=932908569]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 offset_left = 956.0
 offset_top = 58.0
-offset_right = 1076.0
+offset_right = 1106.0
 offset_bottom = 118.0
 text = "change to slot 1"
 
-[node name="save_data" type="Button" parent="." unique_id=457651371]
+[node name="save_data" type="Button" parent="CanvasLayer" unique_id=457651371]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 offset_left = 234.0
@@ -34,7 +36,7 @@ offset_right = 384.0
 offset_bottom = 202.0
 text = "save"
 
-[node name="loda_data" type="Button" parent="." unique_id=261027958]
+[node name="loda_data" type="Button" parent="CanvasLayer" unique_id=261027958]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 offset_left = 773.0
@@ -43,7 +45,7 @@ offset_right = 923.0
 offset_bottom = 191.0
 text = "load"
 
-[node name="Control" type="Control" parent="." unique_id=1069148250]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1069148250]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -54,7 +56,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
 
-[node name="label_number" type="Label" parent="Control" unique_id=699611467]
+[node name="label_number" type="Label" parent="CanvasLayer/Control" unique_id=699611467]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = -116.0
@@ -66,7 +68,7 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="less_number" type="Button" parent="Control" unique_id=2102327922]
+[node name="less_number" type="Button" parent="CanvasLayer/Control" unique_id=2102327922]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 layout_mode = 0
@@ -77,7 +79,7 @@ offset_bottom = -72.0
 text = "less  (- 1)
 "
 
-[node name="plus_number" type="Button" parent="Control" unique_id=1825631004]
+[node name="plus_number" type="Button" parent="CanvasLayer/Control" unique_id=1825631004]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 layout_mode = 0

@@ -22,7 +22,8 @@ var number : int = 0:
 
 
 func _ready() -> void:
-	push_warning("PLEASE TAKE NOTE THIS TEST SCENE WILL CREATE SAVE FILES IN THE 'user://' DIRECTORY")
+	push_warning("NOTE: This test scene creates save files in the 'res://' directory.")
+	SAVE_MANAGER.debugging(true)
 	change_slot_0.pressed.connect(_change_slot_0)
 	change_slot_1.pressed.connect(_change_slot_1)
 	save_data.pressed.connect(_save_data)
