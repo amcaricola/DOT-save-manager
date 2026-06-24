@@ -3,12 +3,12 @@ extends EditorPlugin
 
 
 func _enable_plugin() -> void:
-	add_autoload_singleton("SAVE_MANAGER", "res://addons/simple_save_tool/tool/saveManager.gd")
+	add_autoload_singleton("DOT_save", "res://addons/dot_save_manager/tool/DOT_save.gd")
 	pass
 
 
 func _disable_plugin() -> void:
-	remove_autoload_singleton("SAVE_MANAGER")
+	remove_autoload_singleton("DOT_save")
 	pass
 
 

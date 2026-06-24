@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://12whob2a77x3"]
+
+[ext_resource type="Script" uid="uid://50ic2uy0h86f" path="res://addons/dot_save_manager/example/example.gd" id="1_sdq3i"]
+[ext_resource type="Script" uid="uid://1pns4moeow0x" path="res://addons/dot_save_manager/example/playerExample.gd" id="2_lmdmt"]
+[ext_resource type="Texture2D" uid="uid://bjcih6vfqps6" path="res://addons/dot_save_manager/example/icon.svg" id="3_16qbe"]
+
+[node name="node" type="Node" unique_id=466817357]
+script = ExtResource("1_sdq3i")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1837576516]
+
+[node name="change_slot_0" type="Button" parent="CanvasLayer" unique_id=744334020]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+offset_left = 65.0
+offset_top = 62.0
+offset_right = 215.0
+offset_bottom = 122.0
+text = "change to  slot 0"
+
+[node name="change_slot_1" type="Button" parent="CanvasLayer" unique_id=932908569]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+offset_left = 956.0
+offset_top = 58.0
+offset_right = 1106.0
+offset_bottom = 118.0
+text = "change to slot 1"
+
+[node name="save_data" type="Button" parent="CanvasLayer" unique_id=457651371]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+offset_left = 234.0
+offset_top = 142.0
+offset_right = 384.0
+offset_bottom = 202.0
+text = "save"
+
+[node name="loda_data" type="Button" parent="CanvasLayer" unique_id=261027958]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+offset_left = 773.0
+offset_top = 131.0
+offset_right = 923.0
+offset_bottom = 191.0
+text = "load"
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1069148250]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="label_number" type="Label" parent="CanvasLayer/Control" unique_id=699611467]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -116.0
+offset_top = -166.0
+offset_right = 96.0
+offset_bottom = -55.0
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="less_number" type="Button" parent="CanvasLayer/Control" unique_id=2102327922]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 0
+offset_left = -331.0
+offset_top = -132.0
+offset_right = -181.0
+offset_bottom = -72.0
+text = "less  (- 1)
+"
+
+[node name="plus_number" type="Button" parent="CanvasLayer/Control" unique_id=1825631004]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 60)
+layout_mode = 0
+offset_left = 170.0
+offset_top = -124.0
+offset_right = 320.0
+offset_bottom = -64.0
+text = "plus (+1)"
+
+[node name="player" type="Node2D" parent="." unique_id=537652563]
+unique_name_in_owner = true
+position = Vector2(576, 350)
+script = ExtResource("2_lmdmt")
+
+[node name="Sprite2D" type="Sprite2D" parent="player" unique_id=1127838200]
+texture = ExtResource("3_16qbe")

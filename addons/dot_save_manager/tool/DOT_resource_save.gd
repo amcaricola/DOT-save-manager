@@ -1,5 +1,4 @@
 extends Resource
-class_name SAVE
-
+class_name DOT_resource_save
 
 @export var DATA : Dictionary

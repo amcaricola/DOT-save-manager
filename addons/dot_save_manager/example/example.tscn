@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://12whob2a77x3"]
 
-[ext_resource type="Script" uid="uid://50ic2uy0h86f" path="res://addons/simple_save_tool/example/example.gd" id="1_k33v6"]
-[ext_resource type="Script" uid="uid://1pns4moeow0x" path="res://addons/simple_save_tool/example/playerExample.gd" id="2_86i8c"]
-[ext_resource type="Texture2D" uid="uid://bjcih6vfqps6" path="res://addons/simple_save_tool/example/icon.svg" id="2_yb4ho"]
+[ext_resource type="Script" uid="uid://50ic2uy0h86f" path="res://addons/dot_save_manager/example/example.gd" id="1_sdq3i"]
+[ext_resource type="Script" uid="uid://1pns4moeow0x" path="res://addons/dot_save_manager/example/playerExample.gd" id="2_lmdmt"]
+[ext_resource type="Texture2D" uid="uid://bjcih6vfqps6" path="res://addons/dot_save_manager/example/icon.svg" id="3_16qbe"]
 
 [node name="node" type="Node" unique_id=466817357]
-script = ExtResource("1_k33v6")
+script = ExtResource("1_sdq3i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1837576516]
 
@@ -92,7 +92,7 @@ text = "plus (+1)"
 [node name="player" type="Node2D" parent="." unique_id=537652563]
 unique_name_in_owner = true
 position = Vector2(576, 350)
-script = ExtResource("2_86i8c")
+script = ExtResource("2_lmdmt")
 
 [node name="Sprite2D" type="Sprite2D" parent="player" unique_id=1127838200]
-texture = ExtResource("2_yb4ho")
+texture = ExtResource("3_16qbe")

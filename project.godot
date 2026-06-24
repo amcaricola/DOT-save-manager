@@ -10,12 +10,13 @@ config_version=5
 
 [application]
 
-config/name="simple save tool"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/name="DOT_save Tool"
+config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
 
-SAVE_MANAGER="*uid://ctt30dnwyf7w6"
+DOT_SaveManager="*uid://ctt30dnwyf7w6"
+DOT_save="*uid://ctt30dnwyf7w6"
 
 [debug]
 
@@ -24,7 +25,7 @@ gdscript/warnings/inferred_declaration=2
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/simple_save_tool/plugin.cfg")
+enabled=PackedStringArray("res://addons/dot_save_manager/plugin.cfg", "res://addons/simple_save_tool/plugin.cfg")
 
 [physics]
 

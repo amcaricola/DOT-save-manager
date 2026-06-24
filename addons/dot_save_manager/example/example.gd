@@ -22,8 +22,8 @@ var number : int = 0:
 
 
 func _ready() -> void:
-	push_warning("NOTE: This test scene creates save files in the 'res://' directory.")
-	SAVE_MANAGER.debugging(true)
+	push_warning("NOTE: This test scene creates a save files in the 'res://' directory.")
+	DOT_save.debugging(true)
 	change_slot_0.pressed.connect(_change_slot_0)
 	change_slot_1.pressed.connect(_change_slot_1)
 	save_data.pressed.connect(_save_data)
@@ -43,14 +43,14 @@ func _plus_number () -> void:
 	number = number + 1
 	_update_player_position()
 
-func _change_slot_0 () -> void: SAVE_MANAGER.change_slot(0)
-func _change_slot_1 () -> void: SAVE_MANAGER.change_slot(1)
+func _change_slot_0 () -> void: DOT_save.change_slot(DOT_save.SLOTS.SPACE_1)
+func _change_slot_1 () -> void: DOT_save.change_slot(DOT_save.SLOTS.SPACE_2)
 
 func _save_data () -> void: 
-	SAVE_MANAGER.set_data("number", number) #this save the data in the resource
-	await SAVE_MANAGER.save_data() #this save the data in the user/res directory 
+	DOT_save.set_value_data("number", number) #this save the data in the resource
+	await DOT_save.save_data() #this save the data in the user/res directory 
 
 
 func _loda_data () -> void:
-	SAVE_MANAGER.load_data() #this load the data from the user/res directory to the resource
-	number = SAVE_MANAGER.get_data("number", 0) #this load the data of the resource into the variable
+	DOT_save.load_data() #this load the data from the user/res directory to the resource
+	number = DOT_save.get_value_data("number", 0) #this load the data of the resource into the variable

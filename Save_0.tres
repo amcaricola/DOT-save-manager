@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SAVE" format=3]
+
+[ext_resource type="Script" uid="uid://jnwvrbvgnohj" path="res://addons/dot_save_manager/tool/DOT_resource_save.gd" id="1_fdtli"]
+
+[resource]
+script = ExtResource("1_fdtli")
+DATA = {
+"number": 4,
+"player_position": Vector2(616, 350)
+}
