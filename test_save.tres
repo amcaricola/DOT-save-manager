@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DOT_resource_save" format=3 uid="uid://cqwtro3nnfa1v"]
+
+[ext_resource type="Script" uid="uid://jnwvrbvgnohj" path="res://addons/dot_save_manager/tool/DOT_resource_save.gd" id="1_umafu"]
+
+[resource]
+script = ExtResource("1_umafu")
+metadata/_custom_type_script = "uid://jnwvrbvgnohj"

@@ -24,7 +24,7 @@ signal data_is_loading()
 var _system_file_name : String = "Save"
 var _system_route : String = "user://"
 var _slot : int = 0
-var _extension : String = ".tres"
+var _extension : String = ".json"
 var _file_path : String
 var _debugging_system_route : String = "res://"
 var _is_debugging : bool = false
@@ -42,11 +42,12 @@ func _update_file_path() -> void:
 
 
 func _check_file_in_folder(path : String, slot_to_check : SLOTS = _slot) -> void:
-	if ResourceLoader.exists(path):
-		var updated_file : Resource = load(_file_path)
-		_resource[slot_to_check] = updated_file
-	else:
-		_resource[slot_to_check] = DOT_resource_save.new()
+	JSON_TRANSFORMER.SYS_LOADER(_resource[slot_to_check],path )
+	#if ResourceLoader.exists(path):
+		#var updated_file : Resource = load(_file_path)
+		#_resource[slot_to_check] = updated_file
+	#else:
+		#_resource[slot_to_check] = DOT_resource_save.new()
 
 
 # ----- SETUP METHODS (call at _ready) -----
@@ -85,21 +86,25 @@ func delete_data() -> Error:
 func save_data(time_to_deferred : float = 0.5) -> Error:
 	data_is_saving.emit()
 	await get_tree().create_timer(time_to_deferred).timeout
-	var res : Error = await ResourceSaver.save(_resource[_slot], _file_path, true)
-	return res
+	#var res : Error = await ResourceSaver.save(_resource[_slot], _file_path, true)
+	JSON_TRANSFORMER.SYS_SAVER(_resource[_slot],_file_path)
+	return Error.ERR_ALREADY_EXISTS
 
 
 ## Loads the current slot data from disk (or from "res://" if debugging is enabled).
 func load_data() -> void:
-	if ResourceLoader.exists(_file_path):
-		var updated_file : Resource = load(_file_path)
-		_resource[_slot] = updated_file
+	#if ResourceLoader.exists(_file_path):
+		#var updated_file : Resource = load(_file_path)
+		#_resource[_slot] = updated_file
+	JSON_TRANSFORMER.SYS_LOADER(_resource[_slot],_file_path)
 	data_is_loading.emit()
 
 
 ## Stores a value in the DATA dictionary of the current slot.
 func set_value_data(data_key : String, data_value : Variant) -> void:
-	_resource[_slot].DATA[data_key] = data_value
+	var value_to_save : Array = JSON_TRANSFORMER.stringify(data_value)
+	_resource[_slot].DATA[data_key] = value_to_save
+	#print(value_to_save)
 
 
 ## Retrieves a value from the DATA dictionary. Returns `default_value` if the key doesn't exist.
@@ -107,7 +112,7 @@ func get_value_data(data_key : String, default_value : Variant = null) -> Varian
 	var data_to_return : Variant = default_value
 	if !_resource[_slot].DATA.has(data_key):
 		set_value_data(data_key, data_to_return)
-	data_to_return = _resource[_slot].DATA[data_key]
+	data_to_return = JSON_TRANSFORMER.parcer(_resource[_slot].DATA[data_key])
 	return data_to_return
 
 
