@@ -121,7 +121,6 @@ func change_slot(new_slot : SLOTS) -> void:
 	_update_file_path()
 	_check_file_in_folder(_file_path)
 
-
 ## Returns the entire DATA dictionary from the given slot (defaults to the current slot).
 func get_all_data_from_slot(slot : SLOTS = _slot) -> Dictionary:
 	_check_file_in_folder(_file_path, slot)
