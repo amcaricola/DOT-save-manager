@@ -102,9 +102,7 @@ func load_data() -> void:
 
 ## Stores a value in the DATA dictionary of the current slot.
 func set_value_data(data_key : String, data_value : Variant) -> void:
-	var value_to_save : Array = JSON_TRANSFORMER.stringify(data_value)
-	_resource[_slot].DATA[data_key] = value_to_save
-	#print(value_to_save)
+	_resource[_slot].DATA[data_key] = data_value
 
 
 ## Retrieves a value from the DATA dictionary. Returns `default_value` if the key doesn't exist.
@@ -112,7 +110,7 @@ func get_value_data(data_key : String, default_value : Variant = null) -> Varian
 	var data_to_return : Variant = default_value
 	if !_resource[_slot].DATA.has(data_key):
 		set_value_data(data_key, data_to_return)
-	data_to_return = JSON_TRANSFORMER.parcer(_resource[_slot].DATA[data_key])
+	data_to_return = _resource[_slot].DATA[data_key]
 	return data_to_return
 
 

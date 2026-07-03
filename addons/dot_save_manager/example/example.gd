@@ -19,6 +19,7 @@ var number : int = 0:
 	set(value):
 		number = value
 		label_number.text = str(value)
+		_update_player_position()
 
 
 func _ready() -> void:
@@ -37,11 +38,11 @@ func _update_player_position() -> void:
 
 func _less_number () -> void: 
 	number = number - 1 
-	_update_player_position()
+
 
 func _plus_number () -> void: 
 	number = number + 1
-	_update_player_position()
+
 
 func _change_slot_0 () -> void: DOT_save.change_slot(DOT_save.SLOTS.SPACE_1)
 func _change_slot_1 () -> void: DOT_save.change_slot(DOT_save.SLOTS.SPACE_2)

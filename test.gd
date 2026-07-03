@@ -1,65 +1,41 @@
 extends Node
 
 ## type of values 
-#var integer: int = 100
-#var flo :  float = 0.99
-#var vec2 : Vector2 = Vector2(1,2)
-#var boolean : bool = true
-#@onready var res : Resource = preload("uid://cqwtro3nnfa1v")
+var nulo : Variant = null
+var boolean : bool = true
+var integer: int = 100
+var flo :  float = 0.99
 var string : String = "otra prueba"
-#var dic : Dictionary = {
-	#"a" : "a",
-	#"b" : "b"
-	#}
-#var data_json : String = ""
+var v2 : Vector2  = Vector2(0.1,0.2)
+var v2i : Vector2i = Vector2i(1,2)
+var v3 : Vector3 = Vector3 (0.1,0.2,0.3)
+var v3i :Vector3i  = Vector3i (1,2,3)
+var v4 :  Vector4= Vector4 (0.1,0.2,0.3,0.4)
+var v4i :Vector4i  = Vector4i (1,2,3,4)
+var color : Color = Color(0.773, 0.0, 0.0)
+var res : Resource
+var dict : Dictionary = {"a": "A", "b": 2}
+var arr : Array = ["hello", "word", "form", "godot"]
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	DOT_save.debugging(true)
-	await  get_tree().create_timer(0.5).timeout
-	var new_string : String = DOT_save.get_value_data("string", "bad")
-	print("test - ",new_string)
-	
+	DOT_save.set_value_data("nulo", nulo)
+	DOT_save.set_value_data("boolean", boolean)
+	DOT_save.set_value_data("integer", integer)
+	DOT_save.set_value_data("flo", flo)
 	DOT_save.set_value_data("string", string)
+	DOT_save.set_value_data("v2", v2)
+	DOT_save.set_value_data("v2i", v2i)
+	DOT_save.set_value_data("v3", v3)
+	DOT_save.set_value_data("v3i", v3i)
+	DOT_save.set_value_data("v4", v4)
+	DOT_save.set_value_data("v4i", v4i)
+	DOT_save.set_value_data("color", color)
+	# resource
+	DOT_save.set_value_data("dict", dict)
+	DOT_save.set_value_data("arr", arr)
 	await DOT_save.save_data()
 	
-	new_string = DOT_save.get_value_data("string")
-	print(new_string)
-	
-	#var data : Dictionary = DOT_save.get_all_data_from_slot()
-	#printt("DICTIONARY -> ", data)
-	#for key : String in data :
-		#verifier(key, data[key])
-#
-#
-#func verifier(key : String,  data : Variant) -> void:
-	#var STA : String 
-	#match typeof(data):
-		#TYPE_STRING: STA = simple_transform(key, data, TYPE_STRING)
-		#TYPE_DICTIONARY:
-			#for n_key : String in data:
-				#verifier(n_key, data[n_key]) 
-	#data_json = data_json + STA
-	#print(data_json)
-#
-#func simple_transform(key : String, value : Variant, type : Variant.Type ) -> String:
-	#var array_to_transform : Array = [key, value, type]
-	#var string_to_return : String = JSON.stringify(array_to_transform)
-	#return string_to_return
-#
-##func simple_reconvert (json_data : String)-> Dictionary: 
-	##var dictionary_to_return: Dictionary = {}
-	##var jobject : Variant = JSON.parse_string(json_data)
-	##print(jobject)
-	##match int(jobject[2]): 
-		##TYPE_STRING:
-			##var item : String = jobject[1]
-			##dictionary_to_return[jobject[0]] = item 
-		##TYPE_DICTIONARY:
-			##var internal_dic : Dictionary = simple_reconvert(jobject[0])
-			##dictionary_to_return[jobject[0]] = internal_dic
-	##
-	##
-	##
-	##print(dictionary_to_return)
-	##return dictionary_to_return
