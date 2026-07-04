@@ -1,6 +1,8 @@
 class_name JSON_TRANSFORMER
 
 static var ENCRYPTION_KEY : String = "json_transformer_key"
+static var ENCRYPT : bool = false
+static var ALLOW_USER_RESOURCE : bool = false
 
 ## transformer
 static func transformer(data_dictionary : Dictionary) -> Dictionary:
@@ -55,30 +57,42 @@ static func parser(data_dictionary : Dictionary) -> Variant:
 		var value : Variant = data_dictionary[key][0]
 		var type : Variant = data_dictionary[key][1]
 		match int(type):
-			#TYPE_NIL: d_to_return[key] = [data_dictionary[key], TYPE_NIL] # null [null, 0]
-			#TYPE_BOOL:d_to_return[key] = [data_dictionary[key], TYPE_BOOL] #bool [true, 1]
-			#TYPE_INT: d_to_return[key] = [data_dictionary[key], TYPE_INT] #int [10, 2]
-			#TYPE_FLOAT: d_to_return[key] = [data_dictionary[key],  TYPE_FLOAT] #float [0.99, 3]
-			#TYPE_STRING: d_to_return[key] = [data_dictionary[key], TYPE_STRING ] #String ["word", 4]
-			#TYPE_VECTOR2: d_to_return[key] = vector_transformer(data_dictionary[key],2) #Vector2 [[x,y], 5]
-			#TYPE_VECTOR2I: d_to_return[key] = vector_transformer(data_dictionary[key],2) #Vector2i [[x,y], 6]
-			#TYPE_VECTOR3:d_to_return[key] = vector_transformer(data_dictionary[key],3) #Vector3 [[x,y,z], 9]
-			#TYPE_VECTOR3I: d_to_return[key] = vector_transformer(data_dictionary[key],3) #Vector3i [[x,y,z], 10]
-			#TYPE_VECTOR4: d_to_return[key] = vector_transformer(data_dictionary[key],4) #Vector4 [[x,y,z,w], 12]
-			#TYPE_VECTOR4I: d_to_return[key] = vector_transformer(data_dictionary[key],4) #Vector4i [[x,y,z,w], 13]
-			#TYPE_COLOR:  d_to_return[key] = color_transformer(data_dictionary[key]) #Color rgba [[r,g,b,a], 20]
-			TYPE_OBJECT: d_to_return[key] = load(value) #Object [ res_path, 24]
-			#TYPE_DICTIONARY:  d_to_return[key] =[transformer(data_dictionary[key]), TYPE_DICTIONARY]  #Dictionary [{"string" : ["word", 4]}, 27 ]
-			#TYPE_ARRAY: d_to_return[key] = [array_transformer(data_dictionary[key]), TYPE_ARRAY] #Array [ [ ["word", 4],[true, 1] ] , 27 ]
+			TYPE_NIL: d_to_return[key] = null # null [null, 0]
+			TYPE_BOOL:d_to_return[key] = value #bool [true, 1]
+			TYPE_INT: d_to_return[key] = int(value) #int [10, 2]
+			TYPE_FLOAT: d_to_return[key] = float(value) #float [0.99, 3]
+			TYPE_STRING: d_to_return[key] = str(value) #String ["word", 4]
+			TYPE_VECTOR2: d_to_return[key] =  Vector2(value[0],value[1]) #Vector2 [[x,y], 5]
+			TYPE_VECTOR2I: d_to_return[key] =  Vector2i(value[0],value[1]) #Vector2i [[x,y], 6]
+			TYPE_VECTOR3:d_to_return[key] = Vector3(value[0],value[1],value[2]) #Vector3 [[x,y,z], 9]
+			TYPE_VECTOR3I: d_to_return[key] = Vector3i(value[0],value[1],value[2]) #Vector3i [[x,y,z], 10]
+			TYPE_VECTOR4: d_to_return[key] = Vector4(value[0],value[1],value[2],value[3]) #Vector4 [[x,y,z,w], 12]
+			TYPE_VECTOR4I: d_to_return[key] = Vector4i(value[0],value[1],value[2],value[3]) #Vector4i [[x,y,z,w], 13]
+			TYPE_COLOR:  d_to_return[key] = Color(value[0],value[1],value[2],value[3]) #Color rgba [[r,g,b,a], 20]
+			TYPE_OBJECT: d_to_return[key] = resource_parser(value) #Object [ res_path, 24]
+			TYPE_DICTIONARY:  d_to_return[key] = parser(value)  #Dictionary [{"string" : ["word", 4]}, 27 ]
+			TYPE_ARRAY: d_to_return[key] = array_parser(value) #Array [ [ ["word", 4],[true, 1] ] , 27 ]
 			_: push_error("NOT SUPORTED - %s" %key) #typeof not suported
 	return d_to_return
 
+static func array_parser(data : Dictionary) -> Array: 
+	var arr_to_return : Array = []
+	var dict : Dictionary = parser(data)
+	for key : String in dict:
+		arr_to_return.append(dict[key])
+	return arr_to_return
+
+
+
+static func resource_parser (path : String) -> Resource: 
+	if path.contains("user://") and !ALLOW_USER_RESOURCE: return null
+	return load(path)
 
 ## saver and loader
-static func SYS_SAVER(res : DOT_resource_save, path: String, encrypt : bool = false ) -> void: 
+static func SYS_SAVER(res : DOT_resource_save, path: String) -> void: 
 	var transformed_dictionary : Dictionary = transformer(res.DATA)
 	var file : FileAccess 
-	if encrypt: file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, ENCRYPTION_KEY)
+	if ENCRYPT: file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, ENCRYPTION_KEY)
 	else : file = FileAccess.open(path, FileAccess.WRITE)
 	var json_string = JSON.stringify(transformed_dictionary, "\t")
 	if file:
@@ -89,10 +103,10 @@ static func SYS_SAVER(res : DOT_resource_save, path: String, encrypt : bool = fa
 		print("Error al abrir el archivo.")
 
 
-static func SYS_LOADER(res : DOT_resource_save, path: String, encrypt : bool = false) -> void: 
+static func SYS_LOADER(res : DOT_resource_save, path: String) -> void: 
 	if FileAccess.file_exists(path):
 		var file : FileAccess 
-		if encrypt: file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, ENCRYPTION_KEY)
+		if ENCRYPT: file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, ENCRYPTION_KEY)
 		else : file = FileAccess.open(path, FileAccess.READ)
 		var json_text = file.get_as_text()
 		var loaded_data : Dictionary = JSON.parse_string(json_text)

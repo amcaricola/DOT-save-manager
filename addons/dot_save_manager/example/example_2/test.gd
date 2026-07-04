@@ -18,45 +18,58 @@ var dict : Dictionary = {"a": "A", "b": 2}
 var arr : Array = ["hello", "word", "form", "godot"]
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	DOT_save.debugging(true)
-	#DOT_save.set_value_data("nulo", nulo)
-	#DOT_save.set_value_data("boolean", boolean)
-	#DOT_save.set_value_data("integer", integer)
-	#DOT_save.set_value_data("flo", flo)
-	#DOT_save.set_value_data("string", string)
-	#DOT_save.set_value_data("v2", v2)
-	#DOT_save.set_value_data("v2i", v2i)
-	#DOT_save.set_value_data("v3", v3)
-	#DOT_save.set_value_data("v3i", v3i)
-	#DOT_save.set_value_data("v4", v4)
-	#DOT_save.set_value_data("v4i", v4i)
-	#DOT_save.set_value_data("color", color)
+	DOT_save.set_value_data("nulo", nulo)
+	DOT_save.set_value_data("boolean", boolean)
+	DOT_save.set_value_data("integer", integer)
+	DOT_save.set_value_data("flo", flo)
+	DOT_save.set_value_data("string", string)
+	DOT_save.set_value_data("v2", v2)
+	DOT_save.set_value_data("v2i", v2i)
+	DOT_save.set_value_data("v3", v3)
+	DOT_save.set_value_data("v3i", v3i)
+	DOT_save.set_value_data("v4", v4)
+	DOT_save.set_value_data("v4i", v4i)
+	DOT_save.set_value_data("color", color)
 	DOT_save.set_value_data("res", res)
-	#DOT_save.set_value_data("dict", dict)
-	#DOT_save.set_value_data("arr", arr)
+	DOT_save.set_value_data("dict", dict)
+	DOT_save.set_value_data("arr", arr)
 	await DOT_save.save_data()
 	
 	await get_tree().create_timer(1).timeout
 	DOT_save.load_data()
+	nulo = DOT_save.get_value_data("nulo")
+	boolean = DOT_save.get_value_data("boolean")
+	integer = DOT_save.get_value_data("integer")
+	flo = DOT_save.get_value_data("flo")
+	string = DOT_save.get_value_data("string")
+	v2 = DOT_save.get_value_data("v2")
+	v2i = DOT_save.get_value_data("v2i")
+	v3 = DOT_save.get_value_data("v3")
+	v3i = DOT_save.get_value_data("v3i")
+	v4 = DOT_save.get_value_data("v4")
+	v4i = DOT_save.get_value_data("v4i")
+	color = DOT_save.get_value_data("color") 
 	res = DOT_save.get_value_data("res")
+	dict = DOT_save.get_value_data("dict") 
+	arr = DOT_save.get_value_data("arr") 
 	
 	printt(
-		#nulo,
-		#boolean,
-		#integer,
-		#flo,
-		#string,
-		#v2,
-		#v2i,
-		#v3,
-		#v3i,
-		#v4,
-		#v4i,
-		#color,
-		res,
-		#dict,
-		#arr,
+		[nulo, typeof(nulo)],
+		[boolean, typeof(boolean)],
+		[integer, typeof(integer)],
+		[flo, typeof(flo)],
+		[string, typeof(string)],
+		[v2, typeof(v2)],
+		[v2i, typeof(v2i)],
+		[v3, typeof(v3)],
+		[v3i, typeof(v3i)],
+		[v4, typeof(v4)],
+		[v4i, typeof(v4i)],
+		[color, typeof(color)],
+		[res, typeof(res)],
+		[dict,typeof(dict)],
+		[arr,typeof(arr)],
 	)
