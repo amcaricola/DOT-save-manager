@@ -1,10 +1,6 @@
-class_name JSON_TRANSFORMER
+class_name _json_transformer_DOT
 
-static var ENCRYPTION_KEY : String = "json_transformer_key"
-static var ENCRYPT : bool = false
-static var ALLOW_USER_RESOURCE : bool = false
-
-## transformer
+## ---------------------------------------- transformer ----------------------------------------
 static func transformer(data_dictionary : Dictionary) -> Dictionary:
 	var d_to_return : Dictionary
 	for key : String in data_dictionary:
@@ -25,7 +21,7 @@ static func transformer(data_dictionary : Dictionary) -> Dictionary:
 			TYPE_OBJECT:  d_to_return[key] = resource_transformer(value) #Object [ res_path, 24]
 			TYPE_DICTIONARY:  d_to_return[key] =[transformer(value), TYPE_DICTIONARY]  #Dictionary [{"string" : ["word", 4]}, 27 ]
 			TYPE_ARRAY: d_to_return[key] = [array_transformer(value), TYPE_ARRAY] #Array [ [ ["word", 4],[true, 1] ] , 27 ]
-			_: push_error("NOT SUPORTED - %s" %key) #typeof not suported
+			_: push_error("NOT SUPORTED - %s - %s" %[key,value]) #typeof not suported
 	return d_to_return
 
 static func vector_transformer(value : Variant, vector_size : int) -> Array: 
@@ -50,7 +46,7 @@ static func resource_transformer(res: Resource) -> Array:
 		return [ res.resource_path, typeof(res)]
 
 
-## parser
+## ---------------------------------------- parser ----------------------------------------
 static func parser(data_dictionary : Dictionary) -> Variant: 
 	var d_to_return : Dictionary
 	for key : String in data_dictionary:
@@ -72,7 +68,7 @@ static func parser(data_dictionary : Dictionary) -> Variant:
 			TYPE_OBJECT: d_to_return[key] = resource_parser(value) #Object [ res_path, 24]
 			TYPE_DICTIONARY:  d_to_return[key] = parser(value)  #Dictionary [{"string" : ["word", 4]}, 27 ]
 			TYPE_ARRAY: d_to_return[key] = array_parser(value) #Array [ [ ["word", 4],[true, 1] ] , 27 ]
-			_: push_error("NOT SUPORTED - %s" %key) #typeof not suported
+			_: push_error("NOT SUPORTED - %s - %s" %[key,value]) #typeof not suported
 	return d_to_return
 
 static func array_parser(data : Dictionary) -> Array: 
@@ -82,39 +78,42 @@ static func array_parser(data : Dictionary) -> Array:
 		arr_to_return.append(dict[key])
 	return arr_to_return
 
-
-
 static func resource_parser (path : String) -> Resource: 
-	if path.contains("user://") and !ALLOW_USER_RESOURCE: return null
+	if path.contains("user://") and !_config_DOT.ALLOW_USER_RESOURCE: return null
 	return load(path)
 
-## saver and loader
-static func SYS_SAVER(res : DOT_resource_save, path: String) -> void: 
+
+## ---------------------------------------- saver and loader ----------------------------------------
+static func SYS_SAVER(res : _resource_save_DOT, path: String) -> Error: 
 	var transformed_dictionary : Dictionary = transformer(res.DATA)
 	var file : FileAccess 
-	if ENCRYPT: file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, ENCRYPTION_KEY)
-	else : file = FileAccess.open(path, FileAccess.WRITE)
+	if _config_DOT.ENCRYPT: 
+		file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, _config_DOT.ENCRYPTION_KEY)
+	else : 
+		file = FileAccess.open(path, FileAccess.WRITE)
 	var json_string = JSON.stringify(transformed_dictionary, "\t")
 	if file:
 		file.store_string(json_string)
 		file.close()
-		print("¡Archivo JSON guardado exitosamente!" , path)
+		return Error.OK
 	else:
-		print("Error al abrir el archivo.")
+		return Error.FAILED
 
 
-static func SYS_LOADER(res : DOT_resource_save, path: String) -> void: 
+static func SYS_LOADER(res : _resource_save_DOT, path: String) -> Error: 
 	if FileAccess.file_exists(path):
 		var file : FileAccess 
-		if ENCRYPT: file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, ENCRYPTION_KEY)
-		else : file = FileAccess.open(path, FileAccess.READ)
+		if _config_DOT.ENCRYPT: 
+			file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, _config_DOT.ENCRYPTION_KEY)
+		else : 
+			file = FileAccess.open(path, FileAccess.READ)
 		var json_text = file.get_as_text()
 		var loaded_data : Dictionary = JSON.parse_string(json_text)
 		var parsed_dictionary : Dictionary = parser(loaded_data)
-		if parsed_dictionary != null:
+		if !parsed_dictionary.is_empty():
 			res.DATA.merge(parsed_dictionary, true)
-			print("Datos cargados")
+			return Error.OK
 		else:
-			print("Error al analizar el JSON.")
+			return Error.ERR_UNCONFIGURED
 	else:
-		print("No se encontró ningún archivo de guardado.")
+		return Error.FAILED

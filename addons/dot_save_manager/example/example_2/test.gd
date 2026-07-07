@@ -15,12 +15,11 @@ var v4i :Vector4i  = Vector4i (1,2,3,4)
 var color : Color = Color(0.773, 0.0, 0.0)
 var res : Resource = preload("uid://dyjjpujltjiho")
 var dict : Dictionary = {"a": "A", "b": 2}
-var arr : Array = ["hello", "word", "form", "godot"]
+var arr : Array = ["hello", "world", "form", "godot"]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	DOT_save.debugging(true)
 	DOT_save.set_value_data("nulo", nulo)
 	DOT_save.set_value_data("boolean", boolean)
 	DOT_save.set_value_data("integer", integer)
@@ -39,7 +38,7 @@ func _ready() -> void:
 	await DOT_save.save_data()
 	
 	await get_tree().create_timer(1).timeout
-	DOT_save.load_data()
+	await DOT_save.load_data()
 	nulo = DOT_save.get_value_data("nulo")
 	boolean = DOT_save.get_value_data("boolean")
 	integer = DOT_save.get_value_data("integer")
@@ -73,3 +72,4 @@ func _ready() -> void:
 		[dict,typeof(dict)],
 		[arr,typeof(arr)],
 	)
+	#DOT_save.delete_data()
