@@ -1,5 +1,9 @@
 class_name _json_transformer_DOT
 
+static var ENCRYPT : bool 
+static var ENCRYPTION_KEY : String 
+static var ALLOW_USER_RESOURCE : bool
+
 ## ---------------------------------------- transformer ----------------------------------------
 static func transformer(data_dictionary : Dictionary) -> Dictionary:
 	var d_to_return : Dictionary
@@ -79,7 +83,7 @@ static func array_parser(data : Dictionary) -> Array:
 	return arr_to_return
 
 static func resource_parser (path : String) -> Resource: 
-	if path.contains("user://") and !_config_DOT.ALLOW_USER_RESOURCE: return null
+	if path.contains("user://") and !ALLOW_USER_RESOURCE: return null
 	return load(path)
 
 
@@ -87,8 +91,8 @@ static func resource_parser (path : String) -> Resource:
 static func SYS_SAVER(res : _resource_save_DOT, path: String) -> Error: 
 	var transformed_dictionary : Dictionary = transformer(res.DATA)
 	var file : FileAccess 
-	if _config_DOT.ENCRYPT: 
-		file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, _config_DOT.ENCRYPTION_KEY)
+	if ENCRYPT: 
+		file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, ENCRYPTION_KEY)
 	else : 
 		file = FileAccess.open(path, FileAccess.WRITE)
 	var json_string = JSON.stringify(transformed_dictionary, "\t")
@@ -103,8 +107,8 @@ static func SYS_SAVER(res : _resource_save_DOT, path: String) -> Error:
 static func SYS_LOADER(res : _resource_save_DOT, path: String) -> Error: 
 	if FileAccess.file_exists(path):
 		var file : FileAccess 
-		if _config_DOT.ENCRYPT: 
-			file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, _config_DOT.ENCRYPTION_KEY)
+		if ENCRYPT: 
+			file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, ENCRYPTION_KEY)
 		else : 
 			file = FileAccess.open(path, FileAccess.READ)
 		var json_text = file.get_as_text()

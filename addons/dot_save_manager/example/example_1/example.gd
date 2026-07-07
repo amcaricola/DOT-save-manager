@@ -24,7 +24,7 @@ var number : int = 0:
 
 func _ready() -> void:
 	push_warning("NOTE: This test scene creates a save files in the 'res://' directory.")
-	DOT_save.debugging(true)
+	DOT_save.DEBUG(true)
 	change_slot_0.pressed.connect(_change_slot_0)
 	change_slot_1.pressed.connect(_change_slot_1)
 	save_data.pressed.connect(_save_data)

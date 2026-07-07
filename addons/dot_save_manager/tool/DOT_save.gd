@@ -21,16 +21,29 @@ signal data_is_loading()
 	]
 
 var _slot : int = 0
-
+var _DEBUG: bool = false
+var _FILE_NAME : String = "Save"
 
 # ----- INTERNAL METHODS (do not use directly) -----
 func _ready() -> void:
+	_load_cofig_data()
 	_load_file_in_system(_slot)
+
+func _load_cofig_data() -> void: 
+	var _config : ConfigFile = ConfigFile.new()
+	_config.load(_config_DOT.system_config_file_path)
+	_DEBUG = _config.get_value("DATA", "DEBUG" , false)
+	_FILE_NAME = _config.get_value("DATA", "FILE_NAME" , "Save")
+	_json_transformer_DOT.ENCRYPT = _config.get_value("DATA", "ENCRYPT" , false)
+	_json_transformer_DOT.ENCRYPTION_KEY = _config.get_value("DATA", "ENCRYPTION_KEY" , "json_transformer_key")
+	_json_transformer_DOT.ALLOW_USER_RESOURCE = _config.get_value("DATA", "ALLOW_USER_RESOURCE" , false)
+	
 
 func _get_file_path(slot_to_check : SLOTS = _slot) -> String:
 	var _file_path : String
-	var route_to_use : String = "res://" if _config_DOT.DEBUGGING else "user://"
-	_file_path = route_to_use + _config_DOT.FILE_NAME + "_" + str(slot_to_check) + ".json"
+	var route_to_use : String = "res://" if _DEBUG else "user://"
+	_file_path = route_to_use + _FILE_NAME + "_" + str(slot_to_check) + ".json"
+	printt(_DEBUG, _FILE_NAME )
 	return _file_path
 
 
