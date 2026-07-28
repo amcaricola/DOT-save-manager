@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="test_resource" format=3 uid="uid://dyjjpujltjiho"]
+
+[ext_resource type="Script" uid="uid://djpccsg7jo2mw" path="res://addons/dot_save_manager/example/example_2/test_resource.gd" id="1_gwhrg"]
+
+[resource]
+script = ExtResource("1_gwhrg")
+name = "Euphorbia"
+age = 21
+metadata/_custom_type_script = "uid://djpccsg7jo2mw"
