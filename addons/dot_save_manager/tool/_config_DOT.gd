@@ -28,7 +28,7 @@ var _config_cfg : ConfigFile
 func _ready() -> void:
 	_config_cfg = ConfigFile.new()
 	_load_config_resource()
-	_get_cofig_into_vars()
+	_get_config_into_vars()
 	_set_var_into_panel()
 	apply_button.pressed.connect(_save_changes)
 
@@ -48,7 +48,7 @@ func _save_config_resource() -> void:
 	_config_cfg.save(system_config_file_path)
 
 
-func _get_cofig_into_vars() -> void: 
+func _get_config_into_vars() -> void: 
 	DEBUG = _config_cfg.get_value("DATA", "DEBUG", DEBUG)
 	FILE_NAME = _config_cfg.get_value("DATA", "FILE_NAME", FILE_NAME)
 	ENCRYPT = _config_cfg.get_value("DATA", "ENCRYPT", ENCRYPT)

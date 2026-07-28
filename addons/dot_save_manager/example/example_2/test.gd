@@ -5,7 +5,7 @@ var nulo : Variant = null
 var boolean : bool = true
 var integer: int = 100
 var flo :  float = 0.99
-var string : String = "otra prueba"
+var string : String = "other test"
 var v2 : Vector2  = Vector2(0.1,0.2)
 var v2i : Vector2i = Vector2i(1,2)
 var v3 : Vector3 = Vector3 (0.1,0.2,0.3)
@@ -20,6 +20,21 @@ var arr : Array = ["hello", "world", "form", "godot"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void: 
+	pass
+
+func test_string() -> void: 
+	DOT_save.set_value_data("string", string)
+	await DOT_save.save_data()
+	await get_tree().create_timer(1).timeout
+	await DOT_save.load_data()
+	string = DOT_save.get_value_data("string")
+	DOT_save.delete_data()
+	string = DOT_save.get_value_data("string", "this should be the output")
+	print(string)
+	pass
+
+
+func test_all_supported_values () -> void: 
 	DOT_save.set_value_data("nulo", nulo)
 	DOT_save.set_value_data("boolean", boolean)
 	DOT_save.set_value_data("integer", integer)
@@ -55,21 +70,21 @@ func _ready() -> void:
 	dict = DOT_save.get_value_data("dict") 
 	arr = DOT_save.get_value_data("arr") 
 	
-	#printt(
-		#[nulo, typeof(nulo)],
-		#[boolean, typeof(boolean)],
-		#[integer, typeof(integer)],
-		#[flo, typeof(flo)],
-		#[string, typeof(string)],
-		#[v2, typeof(v2)],
-		#[v2i, typeof(v2i)],
-		#[v3, typeof(v3)],
-		#[v3i, typeof(v3i)],
-		#[v4, typeof(v4)],
-		#[v4i, typeof(v4i)],
-		#[color, typeof(color)],
-		#[res, typeof(res)],
-		#[dict,typeof(dict)],
-		#[arr,typeof(arr)],
-	#)
-	#DOT_save.delete_data()
+	
+	printt(
+		[nulo, typeof(nulo)],
+		[boolean, typeof(boolean)],
+		[integer, typeof(integer)],
+		[flo, typeof(flo)],
+		[string, typeof(string)],
+		[v2, typeof(v2)],
+		[v2i, typeof(v2i)],
+		[v3, typeof(v3)],
+		[v3i, typeof(v3i)],
+		[v4, typeof(v4)],
+		[v4i, typeof(v4i)],
+		[color, typeof(color)],
+		[res, typeof(res)],
+		[dict,typeof(dict)],
+		[arr,typeof(arr)],
+	)

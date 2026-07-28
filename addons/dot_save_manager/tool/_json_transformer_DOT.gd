@@ -111,7 +111,7 @@ static func SYS_LOADER(res : _resource_save_DOT, path: String) -> Error:
 			file = FileAccess.open_encrypted_with_pass(path, FileAccess.READ, ENCRYPTION_KEY)
 		else : 
 			file = FileAccess.open(path, FileAccess.READ)
-		var json_text = file.get_as_text()
+		var json_text = file.get_as_text() if file else "{}"
 		var loaded_data : Dictionary = JSON.parse_string(json_text)
 		var parsed_dictionary : Dictionary = parser(loaded_data)
 		if !parsed_dictionary.is_empty():

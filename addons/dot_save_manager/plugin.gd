@@ -2,8 +2,10 @@
 extends EditorPlugin
 
 const DOT_Save : String = "res://addons/dot_save_manager/tool/DOT_save.gd"
-const _DOT_pannel : PackedScene = preload("res://addons/dot_save_manager/tool/_panel_dot.tscn")
+const _DOT_panel : PackedScene = preload("res://addons/dot_save_manager/tool/_panel_DOT.tscn")
 var panel : Control 
+
+
 
 
 func _enable_plugin() -> void:
@@ -17,7 +19,7 @@ func _disable_plugin() -> void:
 
 
 func _enter_tree() -> void:
-	panel = _DOT_pannel.instantiate()
+	panel = _DOT_panel.instantiate()
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_UR, panel)
 	# Initialization of the plugin goes here.
 	pass

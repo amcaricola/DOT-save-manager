@@ -36,7 +36,7 @@ offset_right = 384.0
 offset_bottom = 202.0
 text = "save"
 
-[node name="loda_data" type="Button" parent="CanvasLayer" unique_id=261027958]
+[node name="load_data" type="Button" parent="CanvasLayer" unique_id=261027958]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 offset_left = 773.0

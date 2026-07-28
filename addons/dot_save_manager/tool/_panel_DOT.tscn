@@ -13,88 +13,93 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cmrwo")
 
-[node name="Container" type="MarginContainer" parent="." unique_id=221917489]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1215231610]
 layout_mode = 1
-offset_right = 257.0
-offset_bottom = 228.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 282.0
+grow_horizontal = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container" unique_id=1215231610]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=330644223]
+layout_mode = 2
+text = "SAVE SETTINGS"
+
+[node name="__sep__4" type="HSeparator" parent="VBoxContainer" unique_id=1576825146]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container/VBoxContainer" unique_id=957500577]
+[node name="__sep__5" type="HSeparator" parent="VBoxContainer" unique_id=1229407148]
 layout_mode = 2
 
-[node name="lb_debug" type="Label" parent="Container/VBoxContainer/HBoxContainer" unique_id=440279174]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=957500577]
+layout_mode = 2
+
+[node name="lb_debug" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=440279174]
 layout_mode = 2
 text = "Debug (Test)"
 label_settings = SubResource("LabelSettings_1jry3")
 
-[node name="check_debug" type="CheckBox" parent="Container/VBoxContainer/HBoxContainer" unique_id=540516074]
+[node name="check_debug" type="CheckBox" parent="VBoxContainer/HBoxContainer" unique_id=540516074]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 
-[node name="__sep__1" type="HSeparator" parent="Container/VBoxContainer" unique_id=738689651]
+[node name="__sep__1" type="HSeparator" parent="VBoxContainer" unique_id=738689651]
 layout_mode = 2
 
-[node name="lb_file_name" type="Label" parent="Container/VBoxContainer" unique_id=218455227]
+[node name="lb_file_name" type="Label" parent="VBoxContainer" unique_id=218455227]
 layout_mode = 2
 text = "File Name"
 label_settings = SubResource("LabelSettings_1jry3")
 
-[node name="line_file_name" type="LineEdit" parent="Container/VBoxContainer" unique_id=350458087]
+[node name="line_file_name" type="LineEdit" parent="VBoxContainer" unique_id=350458087]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Save"
 
-[node name="__sep__2" type="HSeparator" parent="Container/VBoxContainer" unique_id=1628130624]
+[node name="__sep__2" type="HSeparator" parent="VBoxContainer" unique_id=1628130624]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Container/VBoxContainer" unique_id=177464932]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=177464932]
 layout_mode = 2
 
-[node name="lb_encrypt" type="Label" parent="Container/VBoxContainer/HBoxContainer3" unique_id=1283364546]
+[node name="lb_encrypt" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=1283364546]
 layout_mode = 2
 text = "Encrypt"
 label_settings = SubResource("LabelSettings_1jry3")
 
-[node name="check_encrypt" type="CheckBox" parent="Container/VBoxContainer/HBoxContainer3" unique_id=2054481561]
+[node name="check_encrypt" type="CheckBox" parent="VBoxContainer/HBoxContainer3" unique_id=2054481561]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="lb_encrypt_key" type="Label" parent="Container/VBoxContainer" unique_id=289276913]
+[node name="lb_encrypt_key" type="Label" parent="VBoxContainer" unique_id=289276913]
 layout_mode = 2
 text = "Encrypt key"
 label_settings = SubResource("LabelSettings_1jry3")
 
-[node name="line_encrypt_key" type="LineEdit" parent="Container/VBoxContainer" unique_id=1987932780]
+[node name="line_encrypt_key" type="LineEdit" parent="VBoxContainer" unique_id=1987932780]
 unique_name_in_owner = true
 layout_mode = 2
 text = "json_transformer_key"
 
-[node name="__sep__3" type="HSeparator" parent="Container/VBoxContainer" unique_id=1958755932]
+[node name="__sep__3" type="HSeparator" parent="VBoxContainer" unique_id=1958755932]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Container/VBoxContainer" unique_id=779646551]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=779646551]
 layout_mode = 2
 
-[node name="lb_allow_user_res" type="Label" parent="Container/VBoxContainer/HBoxContainer2" unique_id=1467077096]
+[node name="lb_allow_user_res" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=1467077096]
 layout_mode = 2
 text = "Allow \"user:// Resource\"  load"
 label_settings = SubResource("LabelSettings_1jry3")
 
-[node name="check_allow_user_res" type="CheckBox" parent="Container/VBoxContainer/HBoxContainer2" unique_id=423295979]
+[node name="check_allow_user_res" type="CheckBox" parent="VBoxContainer/HBoxContainer2" unique_id=423295979]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="Apply_button" type="Button" parent="Container/VBoxContainer" unique_id=326237475]
+[node name="Apply_button" type="Button" parent="VBoxContainer" unique_id=326237475]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2

@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_gwhrg")
+name = "Euphorbia"
+age = 21
 metadata/_custom_type_script = "uid://djpccsg7jo2mw"
