@@ -7,6 +7,9 @@
 [node name="node" type="Node" unique_id=466817357]
 script = ExtResource("1_sdq3i")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1972014567]
+position = Vector2(576, 325)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1837576516]
 
 [node name="change_slot_0" type="Button" parent="CanvasLayer" unique_id=744334020]
